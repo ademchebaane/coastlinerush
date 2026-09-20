@@ -1,13 +1,14 @@
-# Coastline Rush — flat Android project
+# Coastline Rush Android APK
 
-This repository is intentionally flattened: there is **no `app/` folder** and no Capacitor project.
-
-The Android application plugin is applied directly to the root Gradle project. `MainActivity.java`, `AndroidManifest.xml`, and `index.html` are all at the repository root.
+This is a flat Android Gradle project: there is no `app/` directory and no Capacitor.
 
 ## GitHub Actions
 
-Run **Actions → Build Coastline Rush APK → Run workflow**.
+Push these files to the root of the repository, then run:
 
-The workflow installs Gradle 9.4.1 and Android SDK 36, builds the debug APK, and uploads it as `Coastline-Rush-APK`.
+Actions -> Build Coastline Rush APK -> Run workflow
 
-The game uses the original HTML/Three.js game and loads Three.js from its jsDelivr URL at runtime, so the APK needs internet access for Three.js.
+The workflow uses Android Gradle Plugin 9.4.0, Gradle 9.6.0, Java 17, Android SDK 36, and Build Tools 36.0.0.
+
+On success, the `Coastline-Rush-APK` artifact contains the debug APK.
+If the build fails, the workflow uploads `Coastline-Rush-Gradle-Log` with the complete Gradle output.
