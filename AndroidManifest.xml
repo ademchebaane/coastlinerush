@@ -4,15 +4,15 @@
 
     <application
         android:allowBackup="false"
+        android:hardwareAccelerated="true"
         android:label="Coastline Rush"
         android:supportsRtl="true"
-        android:hardwareAccelerated="true"
         android:theme="@android:style/Theme.Material.Light.NoActionBar">
         <activity
             android:name="com.coastlinerush.game.MainActivity"
-            android:screenOrientation="sensorLandscape"
             android:configChanges="orientation|screenSize|keyboardHidden"
-            android:exported="true">
+            android:exported="true"
+            android:screenOrientation="sensorLandscape">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
