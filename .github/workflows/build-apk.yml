@@ -1,0 +1,54 @@
+name: Coastline Rush
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main, master]
+
+permissions:
+  contents: read
+
+jobs:
+  build-apk:
+    runs-on: ubuntu-24.04
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v7
+
+      - name: Set up Java 17
+        uses: actions/setup-java@v6
+        with:
+          distribution: temurin
+          java-version: '17'
+
+      - name: Set up Android SDK
+        uses: android-actions/setup-android@v4
+        with:
+          packages: 'platform-tools platforms;android-36 build-tools;36.0.0'
+
+      - name: Set up Gradle 9.4.1
+        uses: gradle/actions/setup-gradle@v6
+        with:
+          gradle-version: '9.4.1'
+          cache-disabled: true
+
+      - name: Verify project layout
+        run: |
+          test -f build.gradle
+          test -f settings.gradle
+          test -f AndroidManifest.xml
+          test -f MainActivity.java
+          test -f index.html
+          test ! -d app
+          echo "Flat Android project verified: no app/ directory"
+
+      - name: Build debug APK
+        run: gradle --no-daemon --stacktrace assembleDebug
+
+      - name: Upload APK
+        uses: actions/upload-artifact@v6
+        with:
+          name: Coastline-Rush-APK
+          path: build/outputs/apk/debug/CoastlineRush-debug.apk
+          if-no-files-found: error
