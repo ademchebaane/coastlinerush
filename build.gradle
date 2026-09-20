@@ -1,5 +1,5 @@
 plugins {
-    id 'com.android.application' version '9.2.0'
+    id 'com.android.application' version '9.4.0'
 }
 
 android {
@@ -14,18 +14,18 @@ android {
         versionName '1.0'
     }
 
-    buildTypes {
-        release {
-            minifyEnabled false
-        }
-        debug {
-            minifyEnabled false
-        }
-    }
-
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_17
         targetCompatibility JavaVersion.VERSION_17
+    }
+
+    buildTypes {
+        debug {
+            minifyEnabled false
+        }
+        release {
+            minifyEnabled false
+        }
     }
 
     sourceSets {
@@ -33,14 +33,7 @@ android {
             manifest.srcFile 'AndroidManifest.xml'
             java.srcDirs = ['.']
             assets.srcDirs = ['.']
-            assets.include 'index.html'
+            assets.include '**/index.html'
         }
     }
-}
-
-tasks.register('copyDebugApk', Copy) {
-    dependsOn 'assembleDebug'
-    from layout.buildDirectory.file('outputs/apk/debug/CoastlineRush-debug.apk')
-    into layout.buildDirectory.dir('outputs/apk/debug')
-    rename { 'CoastlineRush-debug.apk' }
 }
