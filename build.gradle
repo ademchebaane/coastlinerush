@@ -1,0 +1,46 @@
+plugins {
+    id 'com.android.application' version '9.2.0'
+}
+
+android {
+    namespace 'com.coastlinerush.game'
+    compileSdk 36
+
+    defaultConfig {
+        applicationId 'com.coastlinerush.game'
+        minSdk 23
+        targetSdk 36
+        versionCode 1
+        versionName '1.0'
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+        }
+        debug {
+            minifyEnabled false
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
+    }
+
+    sourceSets {
+        main {
+            manifest.srcFile 'AndroidManifest.xml'
+            java.srcDirs = ['.']
+            assets.srcDirs = ['.']
+            assets.include 'index.html'
+        }
+    }
+}
+
+tasks.register('copyDebugApk', Copy) {
+    dependsOn 'assembleDebug'
+    from layout.buildDirectory.file('outputs/apk/debug/CoastlineRush-debug.apk')
+    into layout.buildDirectory.dir('outputs/apk/debug')
+    rename { 'CoastlineRush-debug.apk' }
+}
